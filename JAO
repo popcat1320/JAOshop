@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jaoshop44 | ร้านขายรหัสเกม</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background-color: #222;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .product {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .product h2 {
+      margin-top: 0;
+    }
+    .buy-btn {
+      background-color: #e91e63;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    .buy-btn:hover {
+      background-color: #c2185b;
+    }
+    .qr-section {
+      text-align: center;
+      margin-top: 1rem;
+      display: none;
+    }
+    .qr-section img {
+      width: 200px;
+      margin-bottom: 1rem;
+    }
+    .contact {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    footer {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>jaoshop44</h1>
+    <p>ร้านขายรหัสเกม • Steam Wallet</p>
+  </header>  <div class="container">
+    <div class="product">
+      <h2>Steam Wallet 100 บาท</h2>
+      <p>ราคา: 100 บาท</p>
+      <button class="buy-btn" onclick="showQR('qr1')">ซื้อเลย</button>
+      <div id="qr1" class="qr-section">
+        <p>โอนผ่าน TrueMoney แล้วแนบสลิป</p>
+        <img src="https://via.placeholder.com/200x200.png?text=QR+Truemoney" alt="QR TrueMoney">
+        <br>
+        <a href="https://line.me" target="_blank" class="buy-btn">ส่งสลิปทาง LINE</a>
+      </div>
+    </div><!-- เพิ่มสินค้าอื่นได้ที่นี่ -->
+
+<div class="contact">
+  <p>ติดต่อเรา: LINE ID: <strong>jaoshop44</strong></p>
+</div>
+
+  </div>  <footer>
+    <p>&copy; 2025 jaoshop44. สงวนลิขสิทธิ์</p>
+  </footer>  <script>
+    function showQR(id) {
+      var section = document.getElementById(id);
+      section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    }
+  </script></body>
+</html>
