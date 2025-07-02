@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>💬 ห้องพูดคุย</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: linear-gradient(120deg, #ffdde1, #ee9ca7);
+      padding: 30px;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    #chat-box {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    h2 {
+      text-align: center;
+      color: #ff4081;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    input {
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      background: linear-gradient(to right, #ff4081, #ff80ab);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
+    }
+
+    #messages {
+      margin-top: 20px;
+      max-height: 300px;
+      overflow-y: auto;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      padding: 15px;
+      background: #fff0f5;
+    }
+
+    .msg {
+      margin-bottom: 12px;
+      padding: 10px;
+      background: #ffeaf4;
+      border-radius: 10px;
+      position: relative;
+      animation: popIn 0.5s ease;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .name {
+      font-weight: bold;
+      color: #d81b60;
+    }
+
+    /* ฟองหัวใจ */
+    .heart {
+      position: absolute;
+      color: #ff69b4;
+      font-size: 20px;
+      animation: floatUp 1.5s forwards ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-80px) scale(1.5); }
+    }
+
+    @media screen and (max-width: 600px) {
+      body { padding: 10px; }
+      #chat-box { padding: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="chat-box">
+    <h2>💬 ห้องพูดคุย</h2>
+    <input type="text" id="name" placeholder="ชื่อของคุณ">
+    <input type="text" id="message" placeholder="พิมพ์ข้อความ...">
+    <button onclick="sendMessage()">🚀 ส่งข้อความ</button>
+
+    <div id="messages"></div>
+  </div>
+
+  <audio id="sendSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_b9fe73a43a.mp3?filename=message-pop-alert-124166.mp3" preload="auto"></audio>
+
+  <script>
+    // โหลดชื่อไว้
+    window.onload = function () {
+      const savedName = localStorage.getItem("chat-name");
+      if (savedName) {
+        document.getElementById("name").value = savedName;
+      }
+    };
+
+    function sendMessage() {
+      const nameInput = document.getElementById("name");
+      const messageInput = document.getElementById("message");
+      const messagesDiv = document.getElementById("messages");
+      const sound = document.getElementById("sendSound");
+
+      const name = nameInput.value.trim();
+      const message = messageInput.value.trim();
+
+      if (name === "" || message === "") {
+        alert("กรุณาใส่ชื่อและข้อความ");
+        return;
+      }
+
+      // จำชื่อ
+      localStorage.setItem("chat-name", name);
+
+      // สร้างกล่องข้อความ
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "msg";
+      msgDiv.innerHTML = `<span class="name">👤 ${name}</span>: ${message}`;
+      messagesDiv.appendChild(msgDiv);
+
+      // สร้างหัวใจลอย
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 80 + "%";
+      msgDiv.appendChild(heart);
+      setTimeout(() => heart.remove(), 1500);
+
+      // เล่นเสียง
+      sound.currentTime = 0;
+      sound.play();
+
+      // ล้างข้อความ
+      messageInput.value = "";
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>
