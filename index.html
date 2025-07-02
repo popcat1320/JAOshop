@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>Typing Effect</title>
+  <style>
+    @font-face {
+      font-family: pixel;
+      src: url('re.ttf'); /* ตรวจสอบว่าไฟล์อยู่ในที่เดียวกับ HTML */
+    }
+
+    body {
+      font-family: pixel, sans-serif;
+      font-size: 24px;
+      padding: 20px;
+      background: linear-gradient(120deg, #ffe4ec, #fdf0f5);
+      animation: bgmove 10s infinite alternate;
+      overflow-x: hidden;
+    }
+
+    @keyframes bgmove {
+      0% { background-position: 0 0; }
+      100% { background-position: 100% 100%; }
+    }
+
+    .output {
+      border-right: 2px solid hotpink;
+      white-space: pre;
+      margin-bottom: 10px;
+      color: #ff1493;
+      animation: blink-caret 0.8s step-end infinite;
+    }
+
+    @keyframes blink-caret {
+      50% { border-color: transparent; }
+    }
+
+    #clock {
+      margin-top: 20px;
+      color: #d60087;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .mene {
+      border: none;
+      border-radius: 30px;
+      padding: 10px 20px;
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+      background: linear-gradient(to right, #ff1493, #ff69b4);
+      box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .mene:hover {
+      transform: scale(1.1);
+    }
+
+    .menu {
+      position: relative;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+      opacity: 0;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 15px;
+      border: 2px solid #ffb6c1;
+      background-color: white;
+      width: 220px;
+    }
+
+    .menu.show {
+      max-height: 200px;
+      opacity: 1;
+    }
+
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .menu li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.3s;
+    }
+
+    .menu li:hover {
+      background-color: #ffe4ec;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: #ff1493;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="container"></div>
+  <br><br>
+  <div id="clock"></div>
+  <button class="mene" onclick="toggleMenu()">📂 เปิดเมนู</button>
+  <div class="menu" id="menu">
+    <ul>
+      <li><a href='dashboard.html'>🏠 หน้าหลัก</a></li>
+      <li><a href='#'>📄 หน้ารอง</a></li>
+    </ul>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('show');
+    }
+
+    const messages = ["คุณจะทำอะไร "];
+    const container = document.getElementById("container");
+
+    function typeMessage(msg, delay, callback) {
+      const div = document.createElement("div");
+      div.classList.add("output");
+      container.appendChild(div);
+
+      let charIndex = 0;
+      function typeChar() {
+        if (charIndex < msg.length) {
+          div.textContent += msg.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeChar, delay);
+        } else {
+          if (callback) callback();
+        }
+      }
+      typeChar();
+    }
+
+    function startTypingAll(messages, index = 0) {
+      if (index < messages.length) {
+        typeMessage(messages[index], 80, () => {
+          startTypingAll(messages, index + 1);
+        });
+      }
+    }
+
+    startTypingAll(messages);
+
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById("clock").textContent =
+        now.toLocaleTimeString();
+    }, 1000);
+  </script>
+</body>
+</html>
